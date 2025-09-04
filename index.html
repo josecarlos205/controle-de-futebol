@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Campeonato</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #0c4a6e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1500px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fde047;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #fde047;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        button, .btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            color: #fff;
+        }
+        .btn-nav {
+            background-color: #3b82f6;
+        }
+        .btn-nav:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .btn-primary {
+            background-color: #16a34a;
+        }
+        .btn-primary:hover {
+            background-color: #15803d;
+            transform: scale(1.05);
+        }
+        .btn-secondary {
+            background-color: #a855f7;
+        }
+        .btn-secondary:hover {
+            background-color: #9333ea;
+            transform: scale(1.05);
+        }
+        .btn-danger {
+            background-color: #ef4444;
+        }
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        .btn-action {
+            background-color: #3b82f6;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+        .btn-action:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+            background-color: #2d3748;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .message.success {
+            background-color: #10b981;
+            color: #fff;
+        }
+        .message.error {
+            background-color: #ef4444;
+            color: #fff;
+        }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .flex-item {
+            flex: 1;
+            min-width: 280px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+        }
+        .radio-item input {
+            width: auto;
+            margin: 0;
+            margin-right: 8px;
+        }
+        .radio-item label {
+            cursor: pointer;
+        }
+        /* Súmula Styles */
+        .summary-container {
+            background-color: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+        }
+        .summary-title {
+            text-align: center;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 20px;
+        }
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .summary-score {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        .summary-players h4 {
+            font-size: 0.5 rem;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+        .summary-players table {
+            background: none;
+            box-shadow: none;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .summary-players th, .summary-players td {
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .summary-events {
+            margin-top: 20px;
+        }
+        .summary-events h4 {
+            font-size: 1.5rem;
+            color: #1e40af;
+        }
+        .summary-events ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .summary-signatures {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+        }
+        .signature-line {
+            height: 1px;
+            width: 250px;
+            background-color: #333;
+            margin: 0 auto 5px;
+        }
+        .print-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        @media print {
+            body { background: none; }
+            .container { box-shadow: none; background: none; }
+            .btn, nav, .hidden-print, .print-button-container button { display: none !important; }
+            .page { display: block; }
+            .summary-container { box-shadow: none; padding: 0; }
+            .summary-container * { color: #000 !important; }
+            .summary-container table th, .summary-container table td { border-color: #000 !important; }
+        }
+        @page {
+            size: landscape;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Gerenciador de Campeonato</h1>
+            <p>Controle seu campeonato de futebol como um profissional!</p>
+        </header>
+
+        <nav id="nav">
+            <button class="btn btn-nav" onclick="showPage('home')">Início</button>
+            <button class="btn btn-nav" onclick="showPage('team-registration')">Times</button>
+            <button class="btn btn-nav" onclick="showPage('player-registration')">Jogadores</button>
+            <button class="btn btn-nav" onclick="showPage('match-scheduler')">Tabela de Jogos</button>
+            <button class="btn btn-nav" onclick="showPage('match-result-input')">Resultados</button>
+            <button class="btn btn-nav" onclick="showPage('league-standings')">Classificação</button>
+            <button class="btn btn-nav" onclick="showPage('top-scorers')">Artilharia</button>
+            <button class="btn btn-nav" onclick="showPage('card-tracker')">Cartões</button>
+            <button class="btn btn-nav" onclick="showPage('match-summary-selector')">Súmula</button>
+            <button class="btn btn-nav" id="save-championship-btn">Salvar Campeonato</button>
+            <button class="btn btn-nav" id="load-championship-btn">Carregar Campeonato</button>
+            <button class="btn btn-danger" id="reset-championship-btn">Resetar Campeonato</button>
+        </nav>
+
+        <main id="main-content">
+            <!-- Home Page -->
+            <section id="home-page" class="page active">
+                <div class="text-center">
+                    <h2>Bem-vindo ao Gerenciador de Campeonato!</h2>
+                    <p>Use a navegação acima para gerenciar seu campeonato de futebol.</p>
+                    <p>Desenvolvido por: José Carlos da Silva / Celular de contato:  99992-2743 / Email: josecarlos.saopaulo@gmail.com</p>
+                    <input type="file" id="load-championship-input" accept=".json" style="display: none;">
+                    <div id="home-message" class="message"></div>
+                </div>
+            </section>
+
+            <!-- Team Registration Page -->
+            <section id="team-registration-page" class="page">
+                <h2>Cadastro de Times</h2>
+                <form id="team-registration-form">
+                    <label for="team-name-input">Nome do Time:</label>
+                    <input type="text" id="team-name-input" placeholder="Ex: Flamengo">
+                    <button type="submit" class="btn btn-primary">Cadastrar Time</button>
+                    <div id="team-message" class="message"></div>
+                </form>
+                <h3>Times Cadastrados:</h3>
+                <ul id="team-list"></ul>
+            </section>
+
+            <!-- Player Registration Page -->
+            <section id="player-registration-page" class="page">
+                <h2>Cadastro de Jogadores</h2>
+                <form id="player-registration-form">
+                    <label for="player-name-input">Nome do Jogador:</label>
+                    <input type="text" id="player-name-input" placeholder="Ex: Gabigol">
+                    <label for="player-jersey-input">Número da Camisa:</label>
+                    <input type="number" id="player-jersey-input" placeholder="Ex: 10" min="1" max="99">
+                    <label for="player-position-select">Posição:</label>
+                    <select id="player-position-select">
+                        <option value="">-- Selecione uma Posição --</option>
+                        <option value="Goleiro">Goleiro</option>
+                        <option value="Lateral">Lateral</option>
+                        <option value="Zagueiro">Zagueiro</option>
+                        <option value="Meio-campo">Meio-campo</option>
+                        <option value="Atacante">Atacante</option>
+                    </select>
+                    <label for="player-team-select">Time:</label>
+                    <select id="player-team-select"></select>
+                    <button type="submit" class="btn btn-primary">Cadastrar Jogador</button>
+                    <div id="player-message" class="message"></div>
+                </form>
+                <h3>Jogadores Cadastrados:</h3>
+                <ul id="player-list"></ul>
+            </section>
+
+            <!-- Match Scheduler Page -->
+            <section id="match-scheduler-page" class="page">
+                <h2>Tabela de Jogos</h2>
+                <div class="form-control">
+                    <label>Formato do Campeonato:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="singleRound" name="tournamentFormat" value="singleRound" checked>
+                            <label for="singleRound">Turno Único</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="doubleRound" name="tournamentFormat" value="doubleRound">
+                            <label for="doubleRound">Ida e Volta</label>
+                        </div>
+                    </div>
+                </div>
+                <button id="generate-matches-btn" class="btn btn-primary">Gerar Tabela de Jogos</button>
+                <div id="match-scheduler-message" class="message"></div>
+                <h3>Jogos Gerados:</h3>
+                <div class="table-container">
+                    <table id="matches-table">
+                        <thead>
+                            <tr>
+                                <th>Rodada</th>
+                                <th>Mandante</th>
+                                <th>Placar</th>
+                                <th>Visitante</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Match Result Input Page -->
+            <section id="match-result-input-page" class="page">
+                <h2>Registrar Resultados e Ocorrências</h2>
+                <form id="match-result-form">
+                    <label for="match-select">Selecionar Jogo:</label>
+                    <select id="match-select"></select>
+                    
+                    <div class="flex-container" id="score-inputs">
+                        <div class="flex-item">
+                            <label id="home-team-name-label">Time A Gols:</label>
+                            <input type="number" id="home-score-input" min="0">
+                        </div>
+                        <div class="flex-item">
+                            <label id="away-team-name-label">Time B Gols:</label>
+                            <input type="number" id="away-score-input" min="0">
+                        </div>
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="flex-item">
+                            <label for="match-referee-input">Árbitro:</label>
+                            <input type="text" id="match-referee-input" placeholder="Nome do Árbitro">
+                        </div>
+                        <div class="flex-item">
+                            <label for="match-field-input">Campo:</label>
+                            <input type="text" id="match-field-input" placeholder="Nome do Campo">
+                        </div>
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="flex-item">
+                            <label for="match-date-input">Data do Jogo:</label>
+                            <input type="date" id="match-date-input">
+                        </div>
+                        <div class="flex-item">
+                            <label for="match-time-input">Horário do Jogo:</label>
+                            <input type="time" id="match-time-input">
+                        </div>
+                    </div>
+                    
+                    <div class="flex-container">
+                        <div class="flex-item">
+                            <h3 id="home-team-goals-header">Artilheiros do Time A:</h3>
+                            <div id="home-goals-container"></div>
+                            <button type="button" class="btn btn-action" onclick="addGoalField('home')">Adicionar Gol</button>
+                        </div>
+                        <div class="flex-item">
+                            <h3 id="away-team-goals-header">Artilheiros do Time B:</h3>
+                            <div id="away-goals-container"></div>
+                            <button type="button" class="btn btn-action" onclick="addGoalField('away')">Adicionar Gol</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-container">
+                        <div class="flex-item">
+                            <h3 id="home-team-cards-header">Cartões do Time A:</h3>
+                            <div id="home-cards-container"></div>
+                            <button type="button" class="btn btn-action" onclick="addCardField('home')">Adicionar Cartão</button>
+                        </div>
+                        <div class="flex-item">
+                            <h3 id="away-team-cards-header">Cartões do Time B:</h3>
+                            <div id="away-cards-container"></div>
+                            <button type="button" class="btn btn-action" onclick="addCardField('away')">Adicionar Cartão</button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Salvar Resultado e Ocorrências</button>
+                    <div id="result-message" class="message"></div>
+                </form>
+            </section>
+
+            <!-- League Standings Page -->
+            <section id="league-standings-page" class="page">
+                <h2>Classificação do Campeonato</h2>
+                <div class="table-container">
+                    <table id="standings-table">
+                        <thead>
+                            <tr>
+                                <th>Pos</th>
+                                <th>Time</th>
+                                <th>Pts</th>
+                                <th>J</th>
+                                <th>V</th>
+                                <th>E</th>
+                                <th>D</th>
+                                <th>GP</th>
+                                <th>GC</th>
+                                <th>SG</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Top Scorers Page -->
+            <section id="top-scorers-page" class="page">
+                <h2>Artilharia</h2>
+                <div class="table-container">
+                    <table id="scorers-table">
+                        <thead>
+                            <tr>
+                                <th>Pos</th>
+                                <th>Jogador</th>
+                                <th>Time</th>
+                                <th>Gols</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Card Tracker Page -->
+            <section id="card-tracker-page" class="page">
+                <h2>Controle de Cartões</h2>
+                <div class="table-container">
+                    <table id="cards-table">
+                        <thead>
+                            <tr>
+                                <th>Jogador</th>
+                                <th>Time</th>
+                                <th>Amarelos</th>
+                                <th>Vermelhos</th>
+                                <th>Azuis</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Match Summary Selector Page -->
+            <section id="match-summary-selector-page" class="page">
+                <h2>Selecionar Jogo para Súmula</h2>
+                <label for="summary-match-select">Selecione o Jogo:</label>
+                <select id="summary-match-select"></select>
+                <button class="btn btn-primary" id="view-summary-btn" style="margin-top: 20px;">Ver Súmula</button>
+                <div id="summary-selector-message" class="message"></div>
+            </section>
+            
+            <!-- Match Summary Page -->
+            <section id="match-summary-page" class="page">
+                <div class="summary-container">
+                    <h2 class="summary-title">SÚMULA DO JOGO</h2>
+                    <div class="summary-header">
+                        <div>
+                            <p><strong>Rodada:</strong> <span id="summary-round"></span></p>
+                            <p><strong>Data:</strong> <span id="summary-date"></span></p>
+                            <p><strong>Hora:</strong> <span id="summary-time"></span></p>
+                        </div>
+                        <div>
+                            <p><strong>Local:</strong> <span id="summary-field">Campo Principal</span></p>
+                            <p><strong>Árbitro:</strong> <span id="summary-referee">[Nome do Árbitro]</span></p>
+                        </div>
+                    </div>
+                    <div class="summary-score">
+                        <span id="summary-home-team"></span> <span class="text-gray-600"> <span id="summary-score-home"></span> x <span id="summary-score-away"></span> </span> <span id="summary-away-team"></span>
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="flex-item summary-players">
+                            <h4 id="summary-home-players-header"></h4>
+                            <div class="table-container">
+                                <table id="summary-home-players-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Jogador</th>
+                                            <th>Núm</th>
+                                            <th>Posição</th>
+                                            <th>Gols</th>
+                                            <th>Am</th>
+                                            <th>Ve</th>
+                                            <th>Az</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="flex-item summary-players">
+                            <h4 id="summary-away-players-header"></h4>
+                            <div class="table-container">
+                                <table id="summary-away-players-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Jogador</th>
+                                            <th>Núm</th>
+                                            <th>Posição</th>
+                                            <th>Gols</th>
+                                            <th>Am</th>
+                                            <th>Ve</th>
+                                            <th>Az</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-events">
+                        <h4>Ocorrências Detalhadas</h4>
+                        <ul id="summary-events-list"></ul>
+                    </div>
+
+                    <div class="summary-signatures">
+                        <p>___________________________________ &nbsp;___________________________________ &nbsp; ___________________________________ </p>
+                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assinatura do Árbitro &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Assinatura do Capitão (Mandante) &nbsp;&nbsp;&nbsp;Assinatura do Capitão (Visitante) </p>
+                    </div>
+     
+
+                    <!--
+                    <div class="summary-signatures">
+                        <p>_________________________ &nbsp; _________________________</p>
+                        <p>&nbsp;&nbsp; Assinatura do Árbitro &nbsp; Assinatura do Capitão (Mandante)</p>
+                        <p style="margin-top: 24px;">_________________________</p>
+                        <p>Assinatura do Capitão (Visitante)</p>
+                    </div>
+                    -->
+
+                    <div class="print-button-container hidden-print">
+                        <button class="btn btn-secondary" onclick="window.print()">Imprimir Súmula</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Data model
+        let appState = {
+            teams: [],
+            players: [],
+            matches: [],
+            events: []
+        };
+
+        // DOM elements
+        const pages = document.querySelectorAll('.page');
+        const teamRegistrationForm = document.getElementById('team-registration-form');
+        const teamNameInput = document.getElementById('team-name-input');
+        const teamList = document.getElementById('team-list');
+        const teamMessage = document.getElementById('team-message');
+
+        const playerRegistrationForm = document.getElementById('player-registration-form');
+        const playerNameInput = document.getElementById('player-name-input');
+        const playerJerseyInput = document.getElementById('player-jersey-input');
+        const playerPositionSelect = document.getElementById('player-position-select');
+        const playerTeamSelect = document.getElementById('player-team-select');
+        const playerList = document.getElementById('player-list');
+        const playerMessage = document.getElementById('player-message');
+
+        const generateMatchesBtn = document.getElementById('generate-matches-btn');
+        const tournamentFormatInputs = document.querySelectorAll('input[name="tournamentFormat"]');
+        const matchesTableBody = document.querySelector('#matches-table tbody');
+        const matchSchedulerMessage = document.getElementById('match-scheduler-message');
+
+        const matchSelect = document.getElementById('match-select');
+        const homeScoreInput = document.getElementById('home-score-input');
+        const awayScoreInput = document.getElementById('away-score-input');
+        const homeGoalsContainer = document.getElementById('home-goals-container');
+        const awayGoalsContainer = document.getElementById('away-goals-container');
+        const homeCardsContainer = document.getElementById('home-cards-container');
+        const awayCardsContainer = document.getElementById('away-cards-container');
+        const matchResultForm = document.getElementById('match-result-form');
+        const resultMessage = document.getElementById('result-message');
+
+        const standingsTableBody = document.querySelector('#standings-table tbody');
+        const scorersTableBody = document.querySelector('#scorers-table tbody');
+        const cardsTableBody = document.querySelector('#cards-table tbody');
+
+        const summaryMatchSelect = document.getElementById('summary-match-select');
+        const viewSummaryBtn = document.getElementById('view-summary-btn');
+        const summaryRound = document.getElementById('summary-round');
+        const summaryDate = document.getElementById('summary-date');
+        const summaryTime = document.getElementById('summary-time');
+        const summaryHomeTeam = document.getElementById('summary-home-team');
+        const summaryAwayTeam = document.getElementById('summary-away-team');
+        const summaryScoreHome = document.getElementById('summary-score-home');
+        const summaryScoreAway = document.getElementById('summary-score-away');
+        const summaryHomePlayersTableBody = document.getElementById('summary-home-players-table').querySelector('tbody');
+        const summaryAwayPlayersTableBody = document.getElementById('summary-away-players-table').querySelector('tbody');
+        const summaryEventsList = document.getElementById('summary-events-list');
+
+        // Utility Functions
+        const generateId = (prefix) => `${prefix}-${Math.random().toString(36).substr(2, 9)}`;
+
+        const getTeamName = (id) => appState.teams.find(t => t.id === id)?.name || 'Time Desconhecido';
+        const getPlayerName = (id) => appState.players.find(p => p.id === id)?.name || 'Jogador Desconhecido';
+
+        const showMessage = (element, msg, type = 'success') => {
+            element.textContent = msg;
+            element.className = `message ${type}`;
+            setTimeout(() => {
+                element.textContent = '';
+                element.className = 'message';
+            }, 3000);
+        };
+
+        // Data Persistence
+        const saveState = () => {
+            localStorage.setItem('leagueState', JSON.stringify(appState));
+        };
+
+        const loadState = () => {
+            const savedState = localStorage.getItem('leagueState');
+            if (savedState) {
+                appState = JSON.parse(savedState);
+                // Migration for new fields
+                appState.players.forEach(player => {
+                    if (player.jerseyNumber === undefined) player.jerseyNumber = null;
+                    if (player.position === undefined) player.position = null;
+                });
+                appState.matches.forEach(match => {
+                    if (match.referee === undefined) match.referee = '';
+                    if (match.field === undefined) match.field = '';
+                    if (match.matchDate === undefined) match.matchDate = '';
+                    if (match.matchTime === undefined) match.matchTime = '';
+                });
+            }
+        };
+
+        // UI Updates
+        const updateTeamList = () => {
+            teamList.innerHTML = '';
+            appState.teams.forEach(team => {
+                const li = document.createElement('li');
+                li.className = 'bg-white bg-opacity-15 p-3 rounded-lg shadow-md flex items-center justify-between';
+                li.innerHTML = `
+                    <span class="text-lg font-medium text-gray-100">${team.name}</span>
+                    <div class="flex gap-2">
+                        <button class="btn btn-action edit-team-btn" data-id="${team.id}">Editar</button>
+                        <button class="btn btn-danger delete-team-btn" data-id="${team.id}">Excluir</button>
+                    </div>
+                `;
+                teamList.appendChild(li);
+            });
+            updatePlayerTeamSelect();
+            updateMatchSelects();
+            updateStandings();
+            updateScorers();
+            updateCards();
+        };
+
+        const updatePlayerList = () => {
+            playerList.innerHTML = '';
+            appState.players.forEach(player => {
+                const li = document.createElement('li');
+                li.className = 'bg-white bg-opacity-15 p-3 rounded-lg shadow-md flex items-center justify-between';
+                li.innerHTML = `
+                    <span class="text-lg font-medium text-gray-100">${player.name} (#${player.jerseyNumber || 'N/A'} - ${player.position || 'N/A'})</span> <span class="text-sm text-gray-300">(${getTeamName(player.teamId)})</span>
+                    <div class="flex gap-2">
+                        <button class="btn btn-action edit-player-btn" data-id="${player.id}">Editar</button>
+                        <button class="btn btn-danger delete-player-btn" data-id="${player.id}">Excluir</button>
+                    </div>
+                `;
+                playerList.appendChild(li);
+            });
+            updateMatchSelects();
+        };
+
+        const updateMatchTable = () => {
+            matchesTableBody.innerHTML = '';
+            const sortedMatches = [...appState.matches].sort((a, b) => a.round - b.round);
+            sortedMatches.forEach(match => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-t border-gray-700 hover:bg-white hover:bg-opacity-10 transition-colors duration-150';
+                const score = match.played ? `${match.scoreHome} x ${match.scoreAway}` : 'A Jogar';
+                tr.innerHTML = `
+                    <td class="py-3 px-4 text-gray-200">${match.round}</td>
+                    <td class="py-3 px-4 text-gray-200 font-medium">${getTeamName(match.homeTeamId)}</td>
+                    <td class="py-3 px-4 text-gray-200">${score}</td>
+                    <td class="py-3 px-4 text-gray-200 font-medium">${getTeamName(match.awayTeamId)}</td>
+                `;
+                matchesTableBody.appendChild(tr);
+            });
+        };
+        
+        const updatePlayerTeamSelect = () => {
+            playerTeamSelect.innerHTML = '<option value="">-- Selecione um Time --</option>';
+            appState.teams.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team.id;
+                option.textContent = team.name;
+                playerTeamSelect.appendChild(option);
+            });
+        };
+
+        const updateMatchSelects = () => {
+            [matchSelect, summaryMatchSelect].forEach(select => {
+                select.innerHTML = '<option value="">-- Selecione um Jogo --</option>';
+                const sortedMatches = [...appState.matches].sort((a, b) => a.round - b.round);
+                sortedMatches.forEach(match => {
+                    const option = document.createElement('option');
+                    option.value = match.id;
+                    const score = match.played ? `(${match.scoreHome}x${match.scoreAway})` : '';
+                    option.textContent = `Rodada ${match.round}: ${getTeamName(match.homeTeamId)} vs ${getTeamName(match.awayTeamId)} ${score}`;
+                    select.appendChild(option);
+                });
+            });
+        };
+
+        const updateStandings = () => {
+            const teamStats = {};
+            appState.teams.forEach(team => {
+                teamStats[team.id] = { teamName: team.name, points: 0, games: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, goalDifference: 0 };
+            });
+
+            appState.matches.forEach(match => {
+                if (match.played) {
+                    const homeStats = teamStats[match.homeTeamId];
+                    const awayStats = teamStats[match.awayTeamId];
+                    if (!homeStats || !awayStats) return;
+                    homeStats.games++;
+                    awayStats.games++;
+                    homeStats.goalsFor += match.scoreHome;
+                    homeStats.goalsAgainst += match.scoreAway;
+                    awayStats.goalsFor += match.scoreAway;
+                    awayStats.goalsAgainst += match.scoreHome;
+                    if (match.scoreHome > match.scoreAway) { homeStats.points += 3; homeStats.wins++; awayStats.losses++; }
+                    else if (match.scoreHome < match.scoreAway) { awayStats.points += 3; awayStats.wins++; homeStats.losses++; }
+                    else { homeStats.points += 1; awayStats.points += 1; homeStats.draws++; awayStats.draws++; }
+                }
+            });
+
+            const standings = Object.values(teamStats).map(stats => ({
+                ...stats,
+                goalDifference: stats.goalsFor - stats.goalsAgainst
+            }));
+            standings.sort((a, b) => b.points - a.points || b.wins - a.wins || b.goalDifference - a.goalDifference || b.goalsFor - a.goalsFor);
+
+            standingsTableBody.innerHTML = '';
+            standings.forEach((team, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-t border-gray-700 hover:bg-white hover:bg-opacity-10 transition-colors duration-150';
+                tr.innerHTML = `
+                    <td class="py-3 px-4 text-gray-200">${index + 1}</td>
+                    <td class="py-3 px-4 text-gray-200 font-medium">${team.teamName}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.points}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.games}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.wins}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.draws}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.losses}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.goalsFor}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.goalsAgainst}</td>
+                    <td class="py-3 px-4 text-gray-200">${team.goalDifference}</td>
+                `;
+                standingsTableBody.appendChild(tr);
+            });
+        };
+
+        const updateScorers = () => {
+            const playerGoals = {};
+            appState.events.filter(e => e.type === 'goal').forEach(event => {
+                playerGoals[event.playerId] = (playerGoals[event.playerId] || 0) + 1;
+            });
+            const scorers = Object.entries(playerGoals).map(([playerId, goals]) => {
+                const player = appState.players.find(p => p.id === playerId);
+                const team = appState.teams.find(t => t.id === player?.teamId);
+                return { playerName: player?.name || 'Jogador Desconhecido', teamName: team?.name || 'Time Desconhecido', goals: goals };
+            });
+            scorers.sort((a, b) => b.goals - a.goals);
+
+            scorersTableBody.innerHTML = '';
+            scorers.forEach((scorer, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-t border-gray-700 hover:bg-white hover:bg-opacity-10 transition-colors duration-150';
+                tr.innerHTML = `
+                    <td class="py-3 px-4 text-gray-200">${index + 1}</td>
+                    <td class="py-3 px-4 text-gray-200 font-medium">${scorer.playerName}</td>
+                    <td class="py-3 px-4 text-gray-200">${scorer.teamName}</td>
+                    <td class="py-3 px-4 text-gray-200">${scorer.goals}</td>
+                `;
+                scorersTableBody.appendChild(tr);
+            });
+        };
+
+        const updateCards = () => {
+            const playerCards = {};
+            appState.players.forEach(player => {
+                playerCards[player.id] = { playerName: player.name, teamName: getTeamName(player.teamId), yellow: 0, red: 0, blue: 0 };
+            });
+            appState.events.filter(e => ['yellowCard', 'redCard', 'blueCard'].includes(e.type)).forEach(event => {
+                if (playerCards[event.playerId]) {
+                    if (event.type === 'yellowCard') playerCards[event.playerId].yellow++;
+                    if (event.type === 'redCard') playerCards[event.playerId].red++;
+                    if (event.type === 'blueCard') playerCards[event.playerId].blue++;
+                }
+            });
+            const cardData = Object.values(playerCards).filter(pc => pc.yellow > 0 || pc.red > 0 || pc.blue > 0);
+            cardData.sort((a, b) => (b.yellow + b.red * 2 + b.blue * 0.5) - (a.yellow + a.red * 2 + a.blue * 0.5));
+
+            cardsTableBody.innerHTML = '';
+            cardData.forEach(player => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-t border-gray-700 hover:bg-white hover:bg-opacity-10 transition-colors duration-150';
+                tr.innerHTML = `
+                    <td class="py-3 px-4 text-gray-200 font-medium">${player.playerName}</td>
+                    <td class="py-3 px-4 text-gray-200">${player.teamName}</td>
+                    <td class="py-3 px-4 text-yellow-300">${player.yellow}</td>
+                    <td class="py-3 px-4 text-red-400">${player.red}</td>
+                    <td class="py-3 px-4 text-blue-300">${player.blue}</td>
+                `;
+                cardsTableBody.appendChild(tr);
+            });
+        };
+
+        // UI Event Handlers
+        const showPage = (pageId) => {
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(`${pageId}-page`).classList.add('active');
+            updateUI();
+        };
+
+        const updateUI = () => {
+            updateTeamList();
+            updatePlayerList();
+            updateMatchTable();
+            updateStandings();
+            updateScorers();
+            updateCards();
+            updateMatchSelects();
+        };
+
+        // Forms and Actions
+        teamRegistrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const teamName = teamNameInput.value.trim();
+            if (!teamName) {
+                showMessage(teamMessage, 'O nome do time não pode ser vazio.', 'error');
+                return;
+            }
+            if (appState.teams.some(team => team.name.toLowerCase() === teamName.toLowerCase())) {
+                showMessage(teamMessage, 'Este time já está cadastrado.', 'error');
+                return;
+            }
+            appState.teams.push({ id: generateId('T'), name: teamName });
+            teamNameInput.value = '';
+            saveState();
+            updateUI();
+            showMessage(teamMessage, 'Time cadastrado com sucesso!', 'success');
+        });
+
+        playerRegistrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const playerName = playerNameInput.value.trim();
+            const jerseyNumber = parseInt(playerJerseyInput.value);
+            const position = playerPositionSelect.value;
+            const teamId = playerTeamSelect.value;
+            if (!playerName || !teamId || !position || isNaN(jerseyNumber) || jerseyNumber < 1 || jerseyNumber > 99) {
+                showMessage(playerMessage, 'Preencha todos os campos corretamente.', 'error');
+                return;
+            }
+            if (appState.players.some(player => player.name.toLowerCase() === playerName.toLowerCase())) {
+                showMessage(playerMessage, 'Este jogador já está cadastrado.', 'error');
+                return;
+            }
+            appState.players.push({ id: generateId('P'), name: playerName, jerseyNumber: jerseyNumber, position: position, teamId: teamId });
+            playerNameInput.value = '';
+            playerJerseyInput.value = '';
+            playerPositionSelect.value = '';
+            playerTeamSelect.value = '';
+            saveState();
+            updateUI();
+            showMessage(playerMessage, 'Jogador cadastrado com sucesso!', 'success');
+        });
+
+        generateMatchesBtn.addEventListener('click', () => {
+            const teams = appState.teams;
+            if (teams.length < 2) {
+                showMessage(matchSchedulerMessage, 'É necessário pelo menos 2 times para gerar a tabela de jogos.', 'error');
+                return;
+            }
+
+            // Check if matches already exist and show confirmation
+            const hasExistingMatches = appState.matches.length > 0;
+            const hasResults = appState.matches.some(m => m.played);
+
+            if (hasExistingMatches) {
+                const message = hasResults
+                    ? 'Já existe uma tabela de jogos com resultados. Gerar novamente irá apagar todos os resultados dos jogos, artilharia e cartões. Deseja continuar?'
+                    : 'Já existe uma tabela de jogos. Gerar novamente irá apagar a artilharia e cartões. Deseja continuar?';
+
+                if (!confirm(message)) {
+                    return;
+                }
+            }
+
+            let schedule = [];
+            let numTeams = teams.length;
+            let tempTeams = [...teams];
+            const tournamentFormat = document.querySelector('input[name="tournamentFormat"]:checked').value;
+
+            if (numTeams % 2 !== 0) {
+                tempTeams.push({ id: 'BYE', name: 'Folga' });
+                numTeams++;
+            }
+            const rounds = numTeams - 1;
+            const matchesPerRound = numTeams / 2;
+            for (let round = 0; round < rounds; round++) {
+                for (let i = 0; i < matchesPerRound; i++) {
+                    const homeTeam = tempTeams[i];
+                    const awayTeam = tempTeams[numTeams - 1 - i];
+                    if (homeTeam.id !== 'BYE' && awayTeam.id !== 'BYE') {
+                        schedule.push({ id: generateId('M'), round: round + 1, homeTeamId: homeTeam.id, awayTeamId: awayTeam.id, scoreHome: null, scoreAway: null, played: false, referee: '', field: '', matchDate: '', matchTime: '' });
+                        if (tournamentFormat === 'doubleRound') {
+                            schedule.push({ id: generateId('M'), round: round + 1 + rounds, homeTeamId: awayTeam.id, awayTeamId: homeTeam.id, scoreHome: null, scoreAway: null, played: false, referee: '', field: '', matchDate: '', matchTime: '' });
+                        }
+                    }
+                }
+                const lastTeam = tempTeams.pop();
+                tempTeams.splice(1, 0, lastTeam);
+            }
+
+            // Reset events (goals and cards) to clear artilharia and cartões tables
+            appState.events = [];
+
+            // Reset match results if regenerating
+            if (hasExistingMatches) {
+                appState.matches.forEach(match => {
+                    match.scoreHome = null;
+                    match.scoreAway = null;
+                    match.played = false;
+                });
+            }
+
+            appState.matches = schedule;
+            saveState();
+            updateUI();
+            showMessage(matchSchedulerMessage, `Tabela de jogos gerada com sucesso! (${tournamentFormat === 'doubleRound' ? 'Ida e Volta' : 'Turno Único'})`, 'success');
+        });
+
+        matchSelect.addEventListener('change', () => {
+            const matchId = matchSelect.value;
+            const currentMatch = appState.matches.find(m => m.id === matchId);
+            
+            homeScoreInput.value = currentMatch?.scoreHome || '';
+            awayScoreInput.value = currentMatch?.scoreAway || '';
+
+            // Set referee and field inputs
+            document.getElementById('match-referee-input').value = currentMatch?.referee || '';
+            document.getElementById('match-field-input').value = currentMatch?.field || '';
+            document.getElementById('match-date-input').value = currentMatch?.matchDate || '';
+            document.getElementById('match-time-input').value = currentMatch?.matchTime || '';
+            
+            const homeTeamName = getTeamName(currentMatch?.homeTeamId);
+            const awayTeamName = getTeamName(currentMatch?.awayTeamId);
+            document.getElementById('home-team-name-label').textContent = `${homeTeamName} Gols:`;
+            document.getElementById('away-team-name-label').textContent = `${awayTeamName} Gols:`;
+            document.getElementById('home-team-goals-header').textContent = `Artilheiros do ${homeTeamName}:`;
+            document.getElementById('away-team-goals-header').textContent = `Artilheiros do ${awayTeamName}:`;
+            document.getElementById('home-team-cards-header').textContent = `Cartões do ${homeTeamName}:`;
+            document.getElementById('away-team-cards-header').textContent = `Cartões do ${awayTeamName}:`;
+
+            homeGoalsContainer.innerHTML = '';
+            awayGoalsContainer.innerHTML = '';
+            homeCardsContainer.innerHTML = '';
+            awayCardsContainer.innerHTML = '';
+
+            if (currentMatch) {
+                const matchEvents = appState.events.filter(e => e.matchId === matchId);
+                const homePlayers = appState.players.filter(p => p.teamId === currentMatch.homeTeamId);
+                const awayPlayers = appState.players.filter(p => p.teamId === currentMatch.awayTeamId);
+                
+                matchEvents.filter(e => e.type === 'goal' && homePlayers.some(p => p.id === e.playerId)).forEach(goal => addGoalField('home', goal));
+                matchEvents.filter(e => e.type === 'goal' && awayPlayers.some(p => p.id === e.playerId)).forEach(goal => addGoalField('away', goal));
+                matchEvents.filter(e => ['yellowCard', 'redCard', 'blueCard'].includes(e.type) && homePlayers.some(p => p.id === e.playerId)).forEach(card => addCardField('home', card));
+                matchEvents.filter(e => ['yellowCard', 'redCard', 'blueCard'].includes(e.type) && awayPlayers.some(p => p.id === e.playerId)).forEach(card => addCardField('away', card));
+            }
+        });
+
+        const addGoalField = (team, goal = { playerId: '', minute: '' }) => {
+            const container = team === 'home' ? homeGoalsContainer : awayGoalsContainer;
+            const players = team === 'home' ? appState.players.filter(p => p.teamId === appState.matches.find(m => m.id === matchSelect.value)?.homeTeamId) : appState.players.filter(p => p.teamId === appState.matches.find(m => m.id === matchSelect.value)?.awayTeamId);
+
+            const div = document.createElement('div');
+            div.className = 'flex gap-2 mb-2';
+            div.innerHTML = `
+                <select class="flex-1 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 goal-player">
+                    <option value="">Selecione Jogador</option>
+                    ${players.map(p => `<option value="${p.id}" ${goal.playerId === p.id ? 'selected' : ''}>${p.name} (#${p.jerseyNumber || 'N/A'})</option>`).join('')}
+                </select>
+                <input type="number" class="w-20 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 goal-minute" placeholder="Min" min="1" value="${goal.minute}">
+            `;
+            container.appendChild(div);
+        };
+
+        const addCardField = (team, card = { type: 'yellowCard', playerId: '', minute: '' }) => {
+            const container = team === 'home' ? homeCardsContainer : awayCardsContainer;
+            const players = team === 'home' ? appState.players.filter(p => p.teamId === appState.matches.find(m => m.id === matchSelect.value)?.homeTeamId) : appState.players.filter(p => p.teamId === appState.matches.find(m => m.id === matchSelect.value)?.awayTeamId);
+
+            const div = document.createElement('div');
+            div.className = 'flex gap-2 mb-2';
+            div.innerHTML = `
+                <select class="flex-1 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 card-player">
+                    <option value="">Selecione Jogador</option>
+                    ${players.map(p => `<option value="${p.id}" ${card.playerId === p.id ? 'selected' : ''}>${p.name} (#${p.jerseyNumber || 'N/A'})</option>`).join('')}
+                </select>
+                <select class="w-28 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 card-type">
+                    <option value="yellowCard" ${card.type === 'yellowCard' ? 'selected' : ''}>Amarelo</option>
+                    <option value="redCard" ${card.type === 'redCard' ? 'selected' : ''}>Vermelho</option>
+                    <option value="blueCard" ${card.type === 'blueCard' ? 'selected' : ''}>Azul</option>
+                </select>
+                <input type="number" class="w-20 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 card-minute" placeholder="Min" min="1" value="${card.minute}">
+            `;
+            container.appendChild(div);
+        };
+
+        matchResultForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const matchId = matchSelect.value;
+            const scoreHome = parseInt(homeScoreInput.value);
+            const scoreAway = parseInt(awayScoreInput.value);
+            const referee = document.getElementById('match-referee-input').value.trim();
+            const field = document.getElementById('match-field-input').value.trim();
+            const matchDate = document.getElementById('match-date-input').value;
+            const matchTime = document.getElementById('match-time-input').value;
+
+            if (!matchId || isNaN(scoreHome) || isNaN(scoreAway)) {
+                showMessage(resultMessage, 'Selecione um jogo e insira os placares válidos.', 'error');
+                return;
+            }
+
+            // Update match score and additional info
+            const matchIndex = appState.matches.findIndex(m => m.id === matchId);
+            if (matchIndex !== -1) {
+                appState.matches[matchIndex].scoreHome = scoreHome;
+                appState.matches[matchIndex].scoreAway = scoreAway;
+                appState.matches[matchIndex].played = true;
+                appState.matches[matchIndex].referee = referee;
+                appState.matches[matchIndex].field = field;
+                appState.matches[matchIndex].matchDate = matchDate;
+                appState.matches[matchIndex].matchTime = matchTime;
+            }
+
+            // Clear old events for this match
+            appState.events = appState.events.filter(e => e.matchId !== matchId);
+
+            // Add new goal events
+            const homeGoals = document.querySelectorAll('#home-goals-container > div');
+            homeGoals.forEach(div => {
+                const playerId = div.querySelector('.goal-player').value;
+                const minute = div.querySelector('.goal-minute').value;
+                if (playerId && minute) {
+                    appState.events.push({ id: generateId('E'), matchId, playerId, type: 'goal', minute: parseInt(minute) });
+                }
+            });
+            const awayGoals = document.querySelectorAll('#away-goals-container > div');
+            awayGoals.forEach(div => {
+                const playerId = div.querySelector('.goal-player').value;
+                const minute = div.querySelector('.goal-minute').value;
+                if (playerId && minute) {
+                    appState.events.push({ id: generateId('E'), matchId, playerId, type: 'goal', minute: parseInt(minute) });
+                }
+            });
+
+            // Add new card events
+            const homeCards = document.querySelectorAll('#home-cards-container > div');
+            homeCards.forEach(div => {
+                const playerId = div.querySelector('.card-player').value;
+                const type = div.querySelector('.card-type').value;
+                const minute = div.querySelector('.card-minute').value;
+                if (playerId && minute) {
+                    appState.events.push({ id: generateId('E'), matchId, playerId, type, minute: parseInt(minute) });
+                }
+            });
+            const awayCards = document.querySelectorAll('#away-cards-container > div');
+            awayCards.forEach(div => {
+                const playerId = div.querySelector('.card-player').value;
+                const type = div.querySelector('.card-type').value;
+                const minute = div.querySelector('.card-minute').value;
+                if (playerId && minute) {
+                    appState.events.push({ id: generateId('E'), matchId, playerId, type, minute: parseInt(minute) });
+                }
+            });
+
+            saveState();
+            updateUI();
+            showMessage(resultMessage, 'Resultado e ocorrências salvos com sucesso!', 'success');
+        });
+
+        viewSummaryBtn.addEventListener('click', () => {
+            const matchId = summaryMatchSelect.value;
+            if (!matchId) {
+                showMessage(document.getElementById('summary-selector-message'), 'Por favor, selecione um jogo.', 'error');
+                return;
+            }
+            const match = appState.matches.find(m => m.id === matchId);
+            if (!match || !match.played) {
+                showMessage(document.getElementById('summary-selector-message'), 'Este jogo ainda não foi realizado.', 'error');
+                return;
+            }
+            
+            summaryRound.textContent = match.round;
+            summaryDate.textContent = match.matchDate ? formatDate(match.matchDate) : new Date().toLocaleDateString('pt-BR');
+
+            function formatDate(dateString) {
+                const date = new Date(dateString + 'T00:00:00');
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+            summaryTime.textContent = match.matchTime || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            summaryHomeTeam.textContent = getTeamName(match.homeTeamId);
+            summaryAwayTeam.textContent = getTeamName(match.awayTeamId);
+            summaryScoreHome.textContent = match.scoreHome;
+            summaryScoreAway.textContent = match.scoreAway;
+
+            // Display referee and field
+            const summaryReferee = document.getElementById('summary-referee');
+            const summaryField = document.getElementById('summary-field');
+            if (summaryReferee) summaryReferee.textContent = match.referee || '[Nome do Árbitro]';
+            if (summaryField) summaryField.textContent = match.field || 'Campo Principal';
+            
+            const homePlayers = appState.players.filter(p => p.teamId === match.homeTeamId);
+            const awayPlayers = appState.players.filter(p => p.teamId === match.awayTeamId);
+            const matchEvents = appState.events.filter(e => e.matchId === matchId);
+            
+            const getPlayerEvents = (playerId, eventType) => matchEvents.filter(e => e.playerId === playerId && e.type === eventType).length;
+
+            summaryHomePlayersTableBody.innerHTML = '';
+            homePlayers.forEach(player => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-2 px-4 text-gray-800">${player.name}</td>
+                    <td class="py-2 px-4 text-gray-800">${player.jerseyNumber || 'N/A'}</td>
+                    <td class="py-2 px-4 text-gray-800">${player.position || 'N/A'}</td>
+                    <td class="py-2 px-4 text-gray-800">${getPlayerEvents(player.id, 'goal')}</td>
+                    <td class="py-2 px-4 text-yellow-500">${getPlayerEvents(player.id, 'yellowCard')}</td>
+                    <td class="py-2 px-4 text-red-600">${getPlayerEvents(player.id, 'redCard')}</td>
+                    <td class="py-2 px-4 text-blue-500">${getPlayerEvents(player.id, 'blueCard')}</td>
+                `;
+                summaryHomePlayersTableBody.appendChild(tr);
+            });
+
+            summaryAwayPlayersTableBody.innerHTML = '';
+            awayPlayers.forEach(player => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-2 px-4 text-gray-800">${player.name}</td>
+                    <td class="py-2 px-4 text-gray-800">${player.jerseyNumber || 'N/A'}</td>
+                    <td class="py-2 px-4 text-gray-800">${player.position || 'N/A'}</td>
+                    <td class="py-2 px-4 text-gray-800">${getPlayerEvents(player.id, 'goal')}</td>
+                    <td class="py-2 px-4 text-yellow-500">${getPlayerEvents(player.id, 'yellowCard')}</td>
+                    <td class="py-2 px-4 text-red-600">${getPlayerEvents(player.id, 'redCard')}</td>
+                    <td class="py-2 px-4 text-blue-500">${getPlayerEvents(player.id, 'blueCard')}</td>
+                `;
+                summaryAwayPlayersTableBody.appendChild(tr);
+            });
+            
+            summaryEventsList.innerHTML = '';
+            matchEvents.sort((a,b) => a.minute - b.minute).forEach(event => {
+                const li = document.createElement('li');
+                let eventText = `Minuto ${event.minute}: ${getPlayerName(event.playerId)} - `;
+                if (event.type === 'goal') eventText += 'Gol';
+                else if (event.type === 'yellowCard') eventText += 'Cartão Amarelo';
+                else if (event.type === 'redCard') eventText += 'Cartão Vermelho';
+                else if (event.type === 'blueCard') eventText += 'Cartão Azul';
+                li.textContent = eventText;
+                summaryEventsList.appendChild(li);
+            });
+            
+            showPage('match-summary');
+        });
+
+        // Edit and Delete Handlers
+        teamList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('edit-team-btn')) {
+                const teamId = e.target.dataset.id;
+                const team = appState.teams.find(t => t.id === teamId);
+                if (team) {
+                    const newName = prompt('Novo nome do time:', team.name);
+                    if (newName && newName.trim() !== '' && !appState.teams.some(t => t.name.toLowerCase() === newName.toLowerCase() && t.id !== teamId)) {
+                        team.name = newName.trim();
+                        saveState();
+                        updateUI();
+                        showMessage(teamMessage, 'Time editado com sucesso!', 'success');
+                    } else if (newName) {
+                        showMessage(teamMessage, 'Nome inválido ou já existe.', 'error');
+                    }
+                }
+            } else if (e.target.classList.contains('delete-team-btn')) {
+                const teamId = e.target.dataset.id;
+                const team = appState.teams.find(t => t.id === teamId);
+                if (team) {
+                    const hasPlayers = appState.players.some(p => p.teamId === teamId);
+                    const hasMatches = appState.matches.some(m => m.homeTeamId === teamId || m.awayTeamId === teamId);
+                    if (hasPlayers || hasMatches) {
+                        if (!confirm(`Este time tem jogadores ou jogos associados. Excluir mesmo assim? Isso removerá jogadores e jogos relacionados.`)) return;
+                        // Remove players and their events
+                        appState.players = appState.players.filter(p => p.teamId !== teamId);
+                        appState.events = appState.events.filter(e => !appState.players.some(p => p.id === e.playerId));
+                        // Remove matches
+                        appState.matches = appState.matches.filter(m => m.homeTeamId !== teamId && m.awayTeamId !== teamId);
+                    } else {
+                        if (!confirm(`Excluir o time "${team.name}"?`)) return;
+                    }
+                    appState.teams = appState.teams.filter(t => t.id !== teamId);
+                    saveState();
+                    updateUI();
+                    showMessage(teamMessage, 'Time excluído com sucesso!', 'success');
+                }
+            }
+        });
+
+        playerList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('edit-player-btn')) {
+                const playerId = e.target.dataset.id;
+                const player = appState.players.find(p => p.id === playerId);
+                if (player) {
+                    const newName = prompt('Novo nome do jogador:', player.name);
+                    if (newName && newName.trim() !== '' && !appState.players.some(p => p.name.toLowerCase() === newName.toLowerCase() && p.id !== playerId)) {
+                        player.name = newName.trim();
+                        saveState();
+                        updateUI();
+                        showMessage(playerMessage, 'Jogador editado com sucesso!', 'success');
+                    } else if (newName) {
+                        showMessage(playerMessage, 'Nome inválido ou já existe.', 'error');
+                    }
+                }
+            } else if (e.target.classList.contains('delete-player-btn')) {
+                const playerId = e.target.dataset.id;
+                const player = appState.players.find(p => p.id === playerId);
+                if (player) {
+                    const hasEvents = appState.events.some(e => e.playerId === playerId);
+                    if (hasEvents) {
+                        if (!confirm(`Este jogador tem eventos associados (gols/cartões). Excluir mesmo assim?`)) return;
+                        appState.events = appState.events.filter(e => e.playerId !== playerId);
+                    } else {
+                        if (!confirm(`Excluir o jogador "${player.name}"?`)) return;
+                    }
+                    appState.players = appState.players.filter(p => p.id !== playerId);
+                    saveState();
+                    updateUI();
+                    showMessage(playerMessage, 'Jogador excluído com sucesso!', 'success');
+                }
+            }
+        });
+
+        // Championship save/load/reset functions
+        const saveChampionship = () => {
+            const dataStr = JSON.stringify(appState, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'campeonato.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showMessage(document.getElementById('home-message'), 'Campeonato salvo com sucesso!', 'success');
+        };
+
+        const loadChampionship = (file) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const loadedState = JSON.parse(e.target.result);
+                    appState = loadedState;
+                    saveState();
+                    updateUI();
+                    showMessage(document.getElementById('home-message'), 'Campeonato carregado com sucesso!', 'success');
+                } catch (error) {
+                    showMessage(document.getElementById('home-message'), 'Erro ao carregar o arquivo. Verifique se é um arquivo JSON válido.', 'error');
+                }
+            };
+            reader.readAsText(file);
+        };
+
+        const resetChampionship = () => {
+            if (confirm('Isso irá salvar o campeonato atual e resetar todos os dados. Deseja continuar?')) {
+                saveChampionship();
+                appState = { teams: [], players: [], matches: [], events: [] };
+                saveState();
+                updateUI();
+                showMessage(document.getElementById('home-message'), 'Campeonato resetado com sucesso!', 'success');
+            }
+        };
+
+        // Initial load
+        window.onload = () => {
+            loadState();
+            updateUI();
+        };
+
+        // Navigation
+        const navButtons = document.querySelectorAll('nav button');
+        navButtons.forEach(button => {
+            if (button.onclick) {
+                const onclickStr = button.onclick.toString();
+                const match = onclickStr.match(/showPage\('(.+)'\)/);
+                if (match) {
+                    const pageId = match[1];
+                    button.addEventListener('click', () => showPage(pageId));
+                }
+            }
+        });
+
+        // Championship buttons
+        document.getElementById('save-championship-btn').addEventListener('click', saveChampionship);
+        document.getElementById('load-championship-btn').addEventListener('click', () => {
+            document.getElementById('load-championship-input').click();
+        });
+        document.getElementById('load-championship-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                loadChampionship(file);
+            }
+        });
+        document.getElementById('reset-championship-btn').addEventListener('click', resetChampionship);
+        
+    </script>
+</body>
+</html>

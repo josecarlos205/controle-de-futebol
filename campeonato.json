@@ -1,0 +1,174 @@
+{
+  "teams": [
+    {
+      "id": "T-6uibru7d2",
+      "name": "TIME 001"
+    },
+    {
+      "id": "T-hmdi18qg5",
+      "name": "TIME 002"
+    },
+    {
+      "id": "T-cdsmg590k",
+      "name": "TIME 003"
+    },
+    {
+      "id": "T-rnv79h3fv",
+      "name": "TIME 004"
+    }
+  ],
+  "players": [
+    {
+      "id": "P-18n4dhv7l",
+      "name": "ZE CARLOS",
+      "jerseyNumber": 5,
+      "position": "Zagueiro",
+      "teamId": "T-6uibru7d2"
+    },
+    {
+      "id": "P-st3u8xf48",
+      "name": "BAN",
+      "jerseyNumber": 10,
+      "position": "Atacante",
+      "teamId": "T-6uibru7d2"
+    },
+    {
+      "id": "P-5a1mtja1b",
+      "name": "PH",
+      "jerseyNumber": 10,
+      "position": "Meio-campo",
+      "teamId": "T-6uibru7d2"
+    },
+    {
+      "id": "P-4diy6xth6",
+      "name": "EDER",
+      "jerseyNumber": 5,
+      "position": "Zagueiro",
+      "teamId": "T-rnv79h3fv"
+    }
+  ],
+  "matches": [
+    {
+      "id": "M-jc8i7braf",
+      "round": 1,
+      "homeTeamId": "T-6uibru7d2",
+      "awayTeamId": "T-rnv79h3fv",
+      "scoreHome": 3,
+      "scoreAway": 1,
+      "played": true,
+      "referee": "ROGERIO MENON",
+      "field": "INTERNO",
+      "matchDate": "2025-08-04",
+      "matchTime": "20:15"
+    },
+    {
+      "id": "M-mut55s3a1",
+      "round": 1,
+      "homeTeamId": "T-hmdi18qg5",
+      "awayTeamId": "T-cdsmg590k",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-748sza2m4",
+      "round": 2,
+      "homeTeamId": "T-6uibru7d2",
+      "awayTeamId": "T-cdsmg590k",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-jdsq7luum",
+      "round": 2,
+      "homeTeamId": "T-rnv79h3fv",
+      "awayTeamId": "T-hmdi18qg5",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-t1rb3urf8",
+      "round": 3,
+      "homeTeamId": "T-6uibru7d2",
+      "awayTeamId": "T-hmdi18qg5",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-h2hm9jng6",
+      "round": 3,
+      "homeTeamId": "T-cdsmg590k",
+      "awayTeamId": "T-rnv79h3fv",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    }
+  ],
+  "events": [
+    {
+      "id": "E-8nbjjiar3",
+      "matchId": "M-jc8i7braf",
+      "playerId": "P-18n4dhv7l",
+      "type": "goal",
+      "minute": 1
+    },
+    {
+      "id": "E-0c2bhs639",
+      "matchId": "M-jc8i7braf",
+      "playerId": "P-18n4dhv7l",
+      "type": "goal",
+      "minute": 2
+    },
+    {
+      "id": "E-8oyr9tgpd",
+      "matchId": "M-jc8i7braf",
+      "playerId": "P-st3u8xf48",
+      "type": "goal",
+      "minute": 3
+    },
+    {
+      "id": "E-ojioktcns",
+      "matchId": "M-jc8i7braf",
+      "playerId": "P-4diy6xth6",
+      "type": "goal",
+      "minute": 5
+    },
+    {
+      "id": "E-urnwrf4m3",
+      "matchId": "M-jc8i7braf",
+      "playerId": "P-5a1mtja1b",
+      "type": "blueCard",
+      "minute": 5
+    },
+    {
+      "id": "E-w2v0lubj9",
+      "matchId": "M-jc8i7braf",
+      "playerId": "P-4diy6xth6",
+      "type": "yellowCard",
+      "minute": 8
+    }
+  ]
+}
