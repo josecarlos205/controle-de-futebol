@@ -1,71 +1,104 @@
 {
   "teams": [
     {
-      "id": "T-6uibru7d2",
-      "name": "TIME 001"
+      "id": "T-qs4hlzil2",
+      "name": "Manchester City"
     },
     {
-      "id": "T-hmdi18qg5",
-      "name": "TIME 002"
+      "id": "T-lsqeqk191",
+      "name": "Borussia"
     },
     {
-      "id": "T-cdsmg590k",
-      "name": "TIME 003"
+      "id": "T-qazgcwk1u",
+      "name": "Barcelona"
     },
     {
-      "id": "T-rnv79h3fv",
-      "name": "TIME 004"
+      "id": "T-0xq94snku",
+      "name": "Sporting"
+    },
+    {
+      "id": "T-0xgrv4962",
+      "name": "Real Madrid"
+    },
+    {
+      "id": "T-u73csw787",
+      "name": "Juventus"
+    },
+    {
+      "id": "T-0d1q1c0n9",
+      "name": "Liverpol"
     }
   ],
   "players": [
     {
-      "id": "P-18n4dhv7l",
-      "name": "ZE CARLOS",
-      "jerseyNumber": 5,
-      "position": "Zagueiro",
-      "teamId": "T-6uibru7d2"
+      "id": "P-1hxutiwah",
+      "name": "MAURICIO Rafael de Paula",
+      "jerseyNumber": 12,
+      "position": "Goleiro",
+      "teamId": "T-qs4hlzil2"
     },
     {
-      "id": "P-st3u8xf48",
-      "name": "BAN",
-      "jerseyNumber": 10,
+      "id": "P-2l1p132lg",
+      "name": "CICERO Pereira",
+      "jerseyNumber": 17,
       "position": "Atacante",
-      "teamId": "T-6uibru7d2"
+      "teamId": "T-qs4hlzil2"
     },
     {
-      "id": "P-5a1mtja1b",
-      "name": "PH",
-      "jerseyNumber": 10,
+      "id": "P-sg9o60jii",
+      "name": "Ireno Cremasco JUNIOR",
+      "jerseyNumber": 19,
       "position": "Meio-campo",
-      "teamId": "T-6uibru7d2"
+      "teamId": "T-qs4hlzil2"
     },
     {
-      "id": "P-4diy6xth6",
-      "name": "EDER",
-      "jerseyNumber": 5,
+      "id": "P-neit1csmm",
+      "name": "REGINALDO Rosa de Souza",
+      "jerseyNumber": 4,
       "position": "Zagueiro",
-      "teamId": "T-rnv79h3fv"
+      "teamId": "T-qs4hlzil2"
+    },
+    {
+      "id": "P-s7meoxuvr",
+      "name": "LEANDRO Luiz de Melo",
+      "jerseyNumber": 5,
+      "position": "Meio-campo",
+      "teamId": "T-qs4hlzil2"
+    },
+    {
+      "id": "P-3pd011fu1",
+      "name": "Eleovan Garcia BAN",
+      "jerseyNumber": 11,
+      "position": "Atacante",
+      "teamId": "T-qs4hlzil2"
+    },
+    {
+      "id": "P-g26noay9o",
+      "name": "ANDRE Rosseti",
+      "jerseyNumber": 18,
+      "position": "Zagueiro",
+      "teamId": "T-qs4hlzil2"
     }
   ],
   "matches": [
     {
-      "id": "M-jc8i7braf",
+      "id": "M-hvtu5kxju",
       "round": 1,
-      "homeTeamId": "T-6uibru7d2",
-      "awayTeamId": "T-rnv79h3fv",
-      "scoreHome": 3,
-      "scoreAway": 1,
-      "played": true,
-      "referee": "ROGERIO MENON",
-      "field": "INTERNO",
-      "matchDate": "2025-08-04",
-      "matchTime": "20:15"
+      "homeTeamId": "T-lsqeqk191",
+      "awayTeamId": "T-0d1q1c0n9",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
     },
     {
-      "id": "M-mut55s3a1",
+      "id": "M-7d5rf5q3y",
       "round": 1,
-      "homeTeamId": "T-hmdi18qg5",
-      "awayTeamId": "T-cdsmg590k",
+      "homeTeamId": "T-qazgcwk1u",
+      "awayTeamId": "T-u73csw787",
       "scoreHome": null,
       "scoreAway": null,
       "played": false,
@@ -75,10 +108,23 @@
       "matchTime": ""
     },
     {
-      "id": "M-748sza2m4",
+      "id": "M-uaj06e6a6",
+      "round": 1,
+      "homeTeamId": "T-0xq94snku",
+      "awayTeamId": "T-0xgrv4962",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-zcumdpoed",
       "round": 2,
-      "homeTeamId": "T-6uibru7d2",
-      "awayTeamId": "T-cdsmg590k",
+      "homeTeamId": "T-qs4hlzil2",
+      "awayTeamId": "T-0d1q1c0n9",
       "scoreHome": null,
       "scoreAway": null,
       "played": false,
@@ -88,10 +134,10 @@
       "matchTime": ""
     },
     {
-      "id": "M-jdsq7luum",
+      "id": "M-9sdlyoqkh",
       "round": 2,
-      "homeTeamId": "T-rnv79h3fv",
-      "awayTeamId": "T-hmdi18qg5",
+      "homeTeamId": "T-lsqeqk191",
+      "awayTeamId": "T-0xgrv4962",
       "scoreHome": null,
       "scoreAway": null,
       "played": false,
@@ -101,10 +147,10 @@
       "matchTime": ""
     },
     {
-      "id": "M-t1rb3urf8",
-      "round": 3,
-      "homeTeamId": "T-6uibru7d2",
-      "awayTeamId": "T-hmdi18qg5",
+      "id": "M-jrb1z6fjy",
+      "round": 2,
+      "homeTeamId": "T-qazgcwk1u",
+      "awayTeamId": "T-0xq94snku",
       "scoreHome": null,
       "scoreAway": null,
       "played": false,
@@ -114,10 +160,192 @@
       "matchTime": ""
     },
     {
-      "id": "M-h2hm9jng6",
+      "id": "M-3p9qdbo7q",
       "round": 3,
-      "homeTeamId": "T-cdsmg590k",
-      "awayTeamId": "T-rnv79h3fv",
+      "homeTeamId": "T-qs4hlzil2",
+      "awayTeamId": "T-u73csw787",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-fcgm58mhe",
+      "round": 3,
+      "homeTeamId": "T-0d1q1c0n9",
+      "awayTeamId": "T-0xgrv4962",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-ljk1ftds6",
+      "round": 3,
+      "homeTeamId": "T-lsqeqk191",
+      "awayTeamId": "T-qazgcwk1u",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-lslmk5jhj",
+      "round": 4,
+      "homeTeamId": "T-qs4hlzil2",
+      "awayTeamId": "T-0xgrv4962",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-pe4wrg0j6",
+      "round": 4,
+      "homeTeamId": "T-u73csw787",
+      "awayTeamId": "T-0xq94snku",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-yvu92ca2r",
+      "round": 4,
+      "homeTeamId": "T-0d1q1c0n9",
+      "awayTeamId": "T-qazgcwk1u",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-luyah9iq5",
+      "round": 5,
+      "homeTeamId": "T-qs4hlzil2",
+      "awayTeamId": "T-0xq94snku",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-pyzwvu0oi",
+      "round": 5,
+      "homeTeamId": "T-0xgrv4962",
+      "awayTeamId": "T-qazgcwk1u",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-dvrdd50hf",
+      "round": 5,
+      "homeTeamId": "T-u73csw787",
+      "awayTeamId": "T-lsqeqk191",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-ycohq64t1",
+      "round": 6,
+      "homeTeamId": "T-qs4hlzil2",
+      "awayTeamId": "T-qazgcwk1u",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-4ar3pod3q",
+      "round": 6,
+      "homeTeamId": "T-0xq94snku",
+      "awayTeamId": "T-lsqeqk191",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-2hoga6wuh",
+      "round": 6,
+      "homeTeamId": "T-u73csw787",
+      "awayTeamId": "T-0d1q1c0n9",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-46k3hms2m",
+      "round": 7,
+      "homeTeamId": "T-qs4hlzil2",
+      "awayTeamId": "T-lsqeqk191",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-67xsd1t7n",
+      "round": 7,
+      "homeTeamId": "T-0xq94snku",
+      "awayTeamId": "T-0d1q1c0n9",
+      "scoreHome": null,
+      "scoreAway": null,
+      "played": false,
+      "referee": "",
+      "field": "",
+      "matchDate": "",
+      "matchTime": ""
+    },
+    {
+      "id": "M-hg8vl443x",
+      "round": 7,
+      "homeTeamId": "T-0xgrv4962",
+      "awayTeamId": "T-u73csw787",
       "scoreHome": null,
       "scoreAway": null,
       "played": false,
@@ -127,48 +355,5 @@
       "matchTime": ""
     }
   ],
-  "events": [
-    {
-      "id": "E-8nbjjiar3",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-18n4dhv7l",
-      "type": "goal",
-      "minute": 1
-    },
-    {
-      "id": "E-0c2bhs639",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-18n4dhv7l",
-      "type": "goal",
-      "minute": 2
-    },
-    {
-      "id": "E-8oyr9tgpd",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-st3u8xf48",
-      "type": "goal",
-      "minute": 3
-    },
-    {
-      "id": "E-ojioktcns",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-4diy6xth6",
-      "type": "goal",
-      "minute": 5
-    },
-    {
-      "id": "E-urnwrf4m3",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-5a1mtja1b",
-      "type": "blueCard",
-      "minute": 5
-    },
-    {
-      "id": "E-w2v0lubj9",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-4diy6xth6",
-      "type": "yellowCard",
-      "minute": 8
-    }
-  ]
+  "events": []
 }
