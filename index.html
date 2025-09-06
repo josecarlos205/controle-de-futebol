@@ -638,6 +638,38 @@
             events: []
         };
 
+        // API functions
+        async function loadFromDB() {
+            try {
+                const response = await fetch('http://localhost:3000/api/state');
+                if (response.ok) {
+                    appState = await response.json();
+                    updateUI();
+                } else {
+                    console.error('Failed to load from database');
+                }
+            } catch (error) {
+                console.error('Error loading from database:', error);
+            }
+        }
+
+        async function saveToDB() {
+            try {
+                const response = await fetch('http://localhost:3000/api/state', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(appState)
+                });
+                if (!response.ok) {
+                    console.error('Failed to save to database');
+                }
+            } catch (error) {
+                console.error('Error saving to database:', error);
+            }
+        }
+
         // DOM elements
         const pages = document.querySelectorAll('.page');
         const teamRegistrationForm = document.getElementById('team-registration-form');
@@ -701,26 +733,24 @@
         };
 
         // Data Persistence
-        const saveState = () => {
-            localStorage.setItem('leagueState', JSON.stringify(appState));
+        const saveState = async () => {
+            await saveToDB();
+            localStorage.setItem('leagueState', JSON.stringify(appState)); // Backup local
         };
 
-        const loadState = () => {
-            const savedState = localStorage.getItem('leagueState');
-            if (savedState) {
-                appState = JSON.parse(savedState);
-                // Migration for new fields
-                appState.players.forEach(player => {
-                    if (player.jerseyNumber === undefined) player.jerseyNumber = null;
-                    if (player.position === undefined) player.position = null;
-                });
-                appState.matches.forEach(match => {
-                    if (match.referee === undefined) match.referee = '';
-                    if (match.field === undefined) match.field = '';
-                    if (match.matchDate === undefined) match.matchDate = '';
-                    if (match.matchTime === undefined) match.matchTime = '';
-                });
-            }
+        const loadState = async () => {
+            await loadFromDB();
+            // Migration for new fields
+            appState.players.forEach(player => {
+                if (player.jerseyNumber === undefined) player.jerseyNumber = null;
+                if (player.position === undefined) player.position = null;
+            });
+            appState.matches.forEach(match => {
+                if (match.referee === undefined) match.referee = '';
+                if (match.field === undefined) match.field = '';
+                if (match.matchDate === undefined) match.matchDate = '';
+                if (match.matchTime === undefined) match.matchTime = '';
+            });
         };
 
         // UI Updates
