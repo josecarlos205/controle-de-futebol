@@ -636,9 +636,12 @@
             .then(r => r.json())
             .then(data => {
                 console.log('OK JSON', data);
-                // ...seu código aqui ...
-        })
-        .catch(err => console.error('Erro ao carregar JSON:', err));
+                // Carregar dados no appState sempre que iniciar, sobrescrevendo localStorage
+                appState = data;
+                saveState();
+                updateUI();
+            })
+            .catch(err => console.error('Erro ao carregar JSON:', err));
         // fim do carregamento do banco
 
 
