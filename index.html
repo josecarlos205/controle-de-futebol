@@ -630,6 +630,18 @@
     </div>
 
     <script>
+
+        // carregamento do banco
+        fetch('./campeonato.json')
+            .then(r => r.json())
+            .then(data => {
+                console.log('OK JSON', data);
+                // ...seu código aqui ...
+        })
+        .catch(err => console.error('Erro ao carregar JSON:', err));
+        // fim do carregamento do banco
+
+
         // Data model
         let appState = {
             teams: [],

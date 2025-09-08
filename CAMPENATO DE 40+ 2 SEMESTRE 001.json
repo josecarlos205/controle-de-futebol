@@ -19,13 +19,6 @@
   ],
   "players": [
     {
-      "id": "P-18n4dhv7l",
-      "name": "ZE CARLOS",
-      "jerseyNumber": 5,
-      "position": "Zagueiro",
-      "teamId": "T-6uibru7d2"
-    },
-    {
       "id": "P-st3u8xf48",
       "name": "BAN",
       "jerseyNumber": 10,
@@ -128,20 +121,6 @@
     }
   ],
   "events": [
-    {
-      "id": "E-8nbjjiar3",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-18n4dhv7l",
-      "type": "goal",
-      "minute": 1
-    },
-    {
-      "id": "E-0c2bhs639",
-      "matchId": "M-jc8i7braf",
-      "playerId": "P-18n4dhv7l",
-      "type": "goal",
-      "minute": 2
-    },
     {
       "id": "E-8oyr9tgpd",
       "matchId": "M-jc8i7braf",

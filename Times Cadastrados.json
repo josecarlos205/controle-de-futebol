@@ -1,0 +1,35 @@
+{
+  "teams": [
+    {
+      "id": "T-a2naablk3",
+      "name": "Manchester City"
+    },
+    {
+      "id": "T-3vng4nuwj",
+      "name": "Borussia"
+    },
+    {
+      "id": "T-3xuf6t2m0",
+      "name": "Barcelona"
+    },
+    {
+      "id": "T-ajmokr7az",
+      "name": "Sporting"
+    },
+    {
+      "id": "T-n5oilrhjm",
+      "name": "Real Madrid"
+    },
+    {
+      "id": "T-ltgzfrw4r",
+      "name": "Juventus"
+    },
+    {
+      "id": "T-gx9pfxwy9",
+      "name": "Liverpol"
+    }
+  ],
+  "players": [],
+  "matches": [],
+  "events": []
+}
